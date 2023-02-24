@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import com.hackerrank.orm.model.Item;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -44,13 +45,13 @@ public class ItemController {
         else return ResponseEntity.badRequest().body(null);
     }
 
-    //4. delete all DELETE
-//    @DeleteMapping ("/item}" )
-//    public ResponseEntity<Item> delete(@PathVariable){
-//        if(this.itemService.deleteItem());
-//            return ResponseEntity.status(HttpStatus.OK).body(null);
-//        else return ResponseEntity.badRequest().body(null);
-//    }
+//    4. delete all DELETE
+    @DeleteMapping ("/item/all" )
+    public ResponseEntity<Item> delete(){
+        if(this.itemService.deleteAll())
+            return ResponseEntity.status(HttpStatus.OK).body(null);
+        else return ResponseEntity.badRequest().body(null);
+    }
 
 
     //5. get by itemId GET

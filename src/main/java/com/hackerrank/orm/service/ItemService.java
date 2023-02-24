@@ -36,18 +36,21 @@ public class ItemService {
     }
 
     public Item updateItem(Item item){
-        Optional<Item> itm = this.getById(item.getItemId());
-        if(itm!=null){
-            logger.info("Here with "+itm.get().getItemId());
-            return this.itemRepository.save(itm.get());
+        if(this.deleteItem(item.getItemId())){
+            return this.itemRepository.save(item);
         }
         else return null;
     }
 
     public Boolean deleteItem(int itemId){
-        this.itemRepository.findById(itemId);
-        itemRepository.delete(this.itemRepository.findById(itemId).get());
-        return this.checkIfExists(this.itemRepository.findById(itemId).get());
+        Item item = this.itemRepository.findById(itemId).get();
+        itemRepository.delete(item);
+        return !this.checkIfExists(item);
+    }
+
+    public Boolean deleteAll(){
+        this.itemRepository.deleteAll();
+        return this.itemRepository.findAll().size()==0;
     }
 
     public List<Item> getAll(){
