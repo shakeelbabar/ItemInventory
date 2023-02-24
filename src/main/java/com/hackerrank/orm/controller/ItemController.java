@@ -1,5 +1,6 @@
 package com.hackerrank.orm.controller;
 
+import com.hackerrank.orm.enums.ItemStatus;
 import com.hackerrank.orm.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -65,7 +66,7 @@ public class ItemController {
 
 
     //6. get all GET
-    @GetMapping ("/item/all" )
+    @GetMapping ("/item" )
     public ResponseEntity<List<Item>> getAll(){
         List<Item> list = this.itemService.getAll();
         if(list.size()>0)
@@ -74,7 +75,11 @@ public class ItemController {
     }
 
     //7. filters by fields ?itemStatus={status}&itemEnteredByUser={modifiedBy} GET
-
+    @GetMapping ("/item" )
+    public ResponseEntity<List<Item>> filtersByFeilds(@RequestParam ItemStatus itemStatus, @RequestParam String itemEnteredByUser){
+        List<Item> itemList = this.itemService.filtersByItemStatusAndEnteredByUser(itemStatus, itemEnteredByUser);
+        return ResponseEntity.status(HttpStatus.OK).body(itemList);
+    }
 
     //8. select all with sorting and pagination ?pageSize={pageSize}&page={page}&sortBy={sortBy} GET
 

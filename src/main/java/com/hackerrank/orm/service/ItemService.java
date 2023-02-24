@@ -1,5 +1,6 @@
 package com.hackerrank.orm.service;
 
+import com.hackerrank.orm.enums.ItemStatus;
 import com.hackerrank.orm.repository.ItemRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,10 @@ public class ItemService {
         Item item = this.itemRepository.findById(itemId).get();
         itemRepository.delete(item);
         return !this.checkIfExists(item);
+    }
+
+    public List<Item> filtersByItemStatusAndEnteredByUser(ItemStatus itemStatus, String enteredByUser){
+        return this.itemRepository.findByItemStatusAndItemEnteredByUser(itemStatus, enteredByUser);
     }
 
     public Boolean deleteAll(){
