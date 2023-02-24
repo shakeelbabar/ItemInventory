@@ -27,12 +27,12 @@ public class ItemController {
     }
 
     //2. update PUT
-    @PutMapping("/item")
-    public ResponseEntity<Item> update(@RequestBody Item item){
-        Item res = this.itemService.updateItem(item);
-        if(res!=null)
+    @PutMapping("/item/{itemId}")
+    public ResponseEntity<Item> update(@RequestBody Item item, @PathVariable int itemId){
+        if(item.getItemId() == itemId){
+            Item res = this.itemService.updateItem(item);
             return ResponseEntity.status(HttpStatus.OK).body(res);
-        else return ResponseEntity.badRequest().body(res);
+        } else return ResponseEntity.badRequest().body(null);
     }
 
 
@@ -46,7 +46,7 @@ public class ItemController {
     }
 
 //    4. delete all DELETE
-    @DeleteMapping ("/item/all" )
+    @DeleteMapping ("/item" )
     public ResponseEntity<Item> delete(){
         if(this.itemService.deleteAll())
             return ResponseEntity.status(HttpStatus.OK).body(null);

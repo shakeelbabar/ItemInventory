@@ -36,10 +36,7 @@ public class ItemService {
     }
 
     public Item updateItem(Item item){
-        if(this.deleteItem(item.getItemId())){
-            return this.itemRepository.save(item);
-        }
-        else return null;
+         return this.itemRepository.save(item);
     }
 
     public Boolean deleteItem(int itemId){
